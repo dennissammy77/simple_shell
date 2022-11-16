@@ -3,6 +3,7 @@
 void sig_handler(int sig);
 int execute(char **args, char **front);
 alias_t *aliases_main;
+extern char **environ;
 /**
  * sig_handler - Prints a new prompt upon a signal.
  * @sig: The signal.
@@ -36,12 +37,12 @@ int execute(char **args, char **front)
 		command = get_location(command);
 	}
 
-	if (!command || (access(command, F_OK) == -1))
+	if (!command )
 	{
-		if (errno == EACCES)
+		/*if (errno == EACCES)|| (access(command, F_OK) == -1)
 			ret = (create_error(args, 126));
 		else
-			ret = (create_error(args, 127));
+			ret = (create_error(args, 127));*/
 	}
 	else
 	{

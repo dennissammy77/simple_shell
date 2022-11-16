@@ -3,7 +3,7 @@ int (*get_builtin(char *command))(char **args, char **front);
 int shellby_exit(char **args, char **front);
 int shellby_cd(char **args, char __attribute__((__unused__)) **front);
 int shellby_help(char **args, char __attribute__((__unused__)) **front);
-alias_t *aliases;
+alias_t *aliases_builtin;
 char *name;
 /**
  * get_builtin - Matches a command with a corresponding
@@ -75,7 +75,7 @@ int shellby_exit(char **args, char **front)
 	args -= 1;
 	free_args(args, front);
 	free_env();
-	free_alias_list(aliases);
+	free_alias_list(aliases_builtin);
 	exit(num);
 }
 
