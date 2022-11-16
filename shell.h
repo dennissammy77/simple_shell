@@ -1,12 +1,6 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
 
-/*
- * File: shell.h
- * Auth: Alex Yu
- *       Brennan D Baraban
- */
-
 #include <fcntl.h>
 #include <signal.h>
 #include <sys/types.h>
@@ -23,9 +17,9 @@
 /* Global environemnt */
 extern char **environ;
 /* Global program name */
-char *name;
+/*char *name;*/
 /* Global history counter */
-int hist;
+/*int hist;*/
 
 /**
  * struct list_s - A new struct type defining a linked list.
@@ -63,7 +57,7 @@ typedef struct alias_s
 } alias_t;
 
 /* Global aliases linked list */
-alias_t *aliases;
+/*alias_t *aliases_global;*/
 
 /* Main Helpers */
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);

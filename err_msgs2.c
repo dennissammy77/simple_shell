@@ -2,7 +2,8 @@
 
 char *error_126(char **args);
 char *error_127(char **args);
-
+char *name_err2;
+int hist_err2;
 /**
  * error_126 - Creates an error message for permission denied failures.
  * @args: An array of arguments passed to the command.
@@ -14,11 +15,11 @@ char *error_126(char **args)
 	char *error, *hist_str;
 	int len;
 
-	hist_str = _itoa(hist);
+	hist_str = _itoa(hist_err2);
 	if (!hist_str)
 		return (NULL);
 
-	len = _strlen(name) + _strlen(hist_str) + _strlen(args[0]) + 24;
+	len = _strlen(name_err2) + _strlen(hist_str) + _strlen(args[0]) + 24;
 	error = malloc(sizeof(char) * (len + 1));
 	if (!error)
 	{
@@ -26,7 +27,7 @@ char *error_126(char **args)
 		return (NULL);
 	}
 
-	_strcpy(error, name);
+	_strcpy(error, name_err2);
 	_strcat(error, ": ");
 	_strcat(error, hist_str);
 	_strcat(error, ": ");
@@ -48,11 +49,11 @@ char *error_127(char **args)
 	char *error, *hist_str;
 	int len;
 
-	hist_str = _itoa(hist);
+	hist_str = _itoa(hist_err2);
 	if (!hist_str)
 		return (NULL);
 
-	len = _strlen(name) + _strlen(hist_str) + _strlen(args[0]) + 16;
+	len = _strlen(name_err2) + _strlen(hist_str) + _strlen(args[0]) + 16;
 	error = malloc(sizeof(char) * (len + 1));
 	if (!error)
 	{
@@ -60,7 +61,7 @@ char *error_127(char **args)
 		return (NULL);
 	}
 
-	_strcpy(error, name);
+	_strcpy(error, name_err2);
 	_strcat(error, ": ");
 	_strcat(error, hist_str);
 	_strcat(error, ": ");

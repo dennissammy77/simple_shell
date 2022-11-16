@@ -2,7 +2,8 @@
 
 int cant_open(char *file_path);
 int proc_file_commands(char *file_path, int *exe_ret);
-
+char *name_proc;
+int hist;
 /**
  * cant_open - If the file doesn't exist or lacks proper permissions, print
  * a cant open error.
@@ -20,7 +21,7 @@ int cant_open(char *file_path)
 	if (!hist_str)
 		return (127);
 
-	len = _strlen(name) + _strlen(hist_str) + _strlen(file_path) + 16;
+	len = _strlen(name_proc) + _strlen(hist_str) + _strlen(file_path) + 16;
 	error = malloc(sizeof(char) * (len + 1));
 	if (!error)
 	{
@@ -28,7 +29,7 @@ int cant_open(char *file_path)
 		return (127);
 	}
 
-	_strcpy(error, name);
+	_strcpy(error, name_proc);
 	_strcat(error, ": ");
 	_strcat(error, hist_str);
 	_strcat(error, ": Can't open ");

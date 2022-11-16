@@ -2,7 +2,7 @@
 
 void sig_handler(int sig);
 int execute(char **args, char **front);
-
+alias_t *aliases_main;
 /**
  * sig_handler - Prints a new prompt upon a signal.
  * @sig: The signal.
@@ -60,7 +60,7 @@ int execute(char **args, char **front)
 				ret = (create_error(args, 126));
 			free_env();
 			free_args(args, front);
-			free_alias_list(aliases);
+			free_alias_list(aliases_main);
 			_exit(ret);
 		}
 		else
@@ -87,9 +87,10 @@ int main(int argc, char *argv[])
 	int *exe_ret = &retn;
 	char *prompt = "$ ", *new_line = "\n";
 
-	name = argv[0];
-	hist = 1;
-	aliases = NULL;
+	/*char *name = argv[0];*/
+	/*int hist = 1;*/
+	void *aliases_main = NULL;
+
 	signal(SIGINT, sig_handler);
 
 	*exe_ret = 0;
@@ -101,7 +102,7 @@ int main(int argc, char *argv[])
 	{
 		ret = proc_file_commands(argv[1], exe_ret);
 		free_env();
-		free_alias_list(aliases);
+		free_alias_list(aliases_main);
 		return (*exe_ret);
 	}
 
@@ -110,7 +111,7 @@ int main(int argc, char *argv[])
 		while (ret != END_OF_FILE && ret != EXIT)
 			ret = handle_args(exe_ret);
 		free_env();
-		free_alias_list(aliases);
+		free_alias_list(aliases_main);
 		return (*exe_ret);
 	}
 
@@ -123,12 +124,12 @@ int main(int argc, char *argv[])
 			if (ret == END_OF_FILE)
 				write(STDOUT_FILENO, new_line, 1);
 			free_env();
-			free_alias_list(aliases);
+			free_alias_list(aliases_main);
 			exit(*exe_ret);
 		}
 	}
 
 	free_env();
-	free_alias_list(aliases);
+	free_alias_list(aliases_main);
 	return (*exe_ret);
 }

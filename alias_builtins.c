@@ -3,7 +3,7 @@
 int shellby_alias(char **args, char __attribute__((__unused__)) **front);
 void set_alias(char *var_name, char *value);
 void print_alias(alias_t *alias);
-
+alias_t *aliases_global;
 /**
  * shellby_alias - Builtin command that either prints all aliases, specific
  * aliases, or sets an alias.
@@ -15,7 +15,7 @@ void print_alias(alias_t *alias);
  */
 int shellby_alias(char **args, char __attribute__((__unused__)) **front)
 {
-	alias_t *temp = aliases;
+	alias_t *temp = aliases_global;
 	int i, ret = 0;
 	char *value;
 
@@ -30,7 +30,7 @@ int shellby_alias(char **args, char __attribute__((__unused__)) **front)
 	}
 	for (i = 0; args[i]; i++)
 	{
-		temp = aliases;
+		temp = aliases_global;
 		value = _strchr(args[i], '=');
 		if (!value)
 		{
@@ -60,11 +60,13 @@ int shellby_alias(char **args, char __attribute__((__unused__)) **front)
  */
 void set_alias(char *var_name, char *value)
 {
-	alias_t *temp = aliases;
+	alias_t *temp;
+
 	int len, j, k;
 	char *new_value;
 
 	*value = '\0';
+	temp = aliases_global;
 	value++;
 	len = _strlen(value) - _strspn(value, "'\"");
 	new_value = malloc(sizeof(char) * (len + 1));
@@ -87,7 +89,7 @@ void set_alias(char *var_name, char *value)
 		temp = temp->next;
 	}
 	if (!temp)
-		add_alias_end(&aliases, var_name, new_value);
+		add_alias_end(&aliases_global, var_name, new_value);
 }
 
 /**
@@ -127,7 +129,7 @@ char **replace_aliases(char **args)
 		return (args);
 	for (i = 0; args[i]; i++)
 	{
-		temp = aliases;
+		temp = aliases_global;
 		while (temp)
 		{
 			if (_strcmp(args[i], temp->name) == 0)

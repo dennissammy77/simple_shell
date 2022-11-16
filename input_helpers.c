@@ -5,7 +5,7 @@ int call_args(char **args, char **front, int *exe_ret);
 int run_args(char **args, char **front, int *exe_ret);
 int handle_args(int *exe_ret);
 int check_args(char **args);
-
+int hist_input;
 /**
  * get_args - Gets a command from standard input.
  * @line: A buffer to store the command.
@@ -28,7 +28,7 @@ char *get_args(char *line, int *exe_ret)
 		return (NULL);
 	if (read == 1)
 	{
-		hist++;
+		hist_input++;
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, prompt, 2);
 		return (get_args(line, exe_ret));
@@ -126,7 +126,7 @@ int run_args(char **args, char **front, int *exe_ret)
 		ret = *exe_ret;
 	}
 
-	hist++;
+	hist_input++;
 
 	for (i = 0; args[i]; i++)
 		free(args[i]);

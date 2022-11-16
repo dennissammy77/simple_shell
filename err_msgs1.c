@@ -5,6 +5,8 @@ char *error_1(char **args);
 char *error_2_exit(char **args);
 char *error_2_cd(char **args);
 char *error_2_syntax(char **args);
+char *name_err1;
+int hist_err1;
 /**
  * error_env - Creates an error message for shellby_env errors.
  * @args: An array of arguments passed to the command.
@@ -16,12 +18,12 @@ char *error_env(char **args)
 	char *error, *hist_str;
 	int len;
 
-	hist_str = _itoa(hist);
+	hist_str = _itoa(hist_err1);
 	if (!hist_str)
 		return (NULL);
 
 	args--;
-	len = _strlen(name) + _strlen(hist_str) + _strlen(args[0]) + 45;
+	len = _strlen(name_err1) + _strlen(hist_str) + _strlen(args[0]) + 45;
 	error = malloc(sizeof(char) * (len + 1));
 	if (!error)
 	{
@@ -29,7 +31,7 @@ char *error_env(char **args)
 		return (NULL);
 	}
 
-	_strcpy(error, name);
+	_strcpy(error, name_err1);
 	_strcat(error, ": ");
 	_strcat(error, hist_str);
 	_strcat(error, ": ");
@@ -51,7 +53,7 @@ char *error_1(char **args)
 	char *error;
 	int len;
 
-	len = _strlen(name) + _strlen(args[0]) + 13;
+	len = _strlen(name_err1) + _strlen(args[0]) + 13;
 	error = malloc(sizeof(char) * (len + 1));
 	if (!error)
 		return (NULL);
@@ -74,11 +76,11 @@ char *error_2_exit(char **args)
 	char *error, *hist_str;
 	int len;
 
-	hist_str = _itoa(hist);
+	hist_str = _itoa(hist_err1);
 	if (!hist_str)
 		return (NULL);
 
-	len = _strlen(name) + _strlen(hist_str) + _strlen(args[0]) + 27;
+	len = _strlen(name_err1) + _strlen(hist_str) + _strlen(args[0]) + 27;
 	error = malloc(sizeof(char) * (len + 1));
 	if (!error)
 	{
@@ -86,7 +88,7 @@ char *error_2_exit(char **args)
 		return (NULL);
 	}
 
-	_strcpy(error, name);
+	_strcpy(error, name_err1);
 	_strcat(error, ": ");
 	_strcat(error, hist_str);
 	_strcat(error, ": exit: Illegal number: ");
@@ -108,13 +110,13 @@ char *error_2_cd(char **args)
 	char *error, *hist_str;
 	int len;
 
-	hist_str = _itoa(hist);
+	hist_str = _itoa(hist_err1);
 	if (!hist_str)
 		return (NULL);
 
 	if (args[0][0] == '-')
 		args[0][2] = '\0';
-	len = _strlen(name) + _strlen(hist_str) + _strlen(args[0]) + 24;
+	len = _strlen(name_err1) + _strlen(hist_str) + _strlen(args[0]) + 24;
 	error = malloc(sizeof(char) * (len + 1));
 	if (!error)
 	{
@@ -122,7 +124,7 @@ char *error_2_cd(char **args)
 		return (NULL);
 	}
 
-	_strcpy(error, name);
+	_strcpy(error, name_err1);
 	_strcat(error, ": ");
 	_strcat(error, hist_str);
 	if (args[0][0] == '-')
@@ -147,11 +149,11 @@ char *error_2_syntax(char **args)
 	char *error, *hist_str;
 	int len;
 
-	hist_str = _itoa(hist);
+	hist_str = _itoa(hist_err1);
 	if (!hist_str)
 		return (NULL);
 
-	len = _strlen(name) + _strlen(hist_str) + _strlen(args[0]) + 33;
+	len = _strlen(name_err1) + _strlen(hist_str) + _strlen(args[0]) + 33;
 	error = malloc(sizeof(char) * (len + 1));
 	if (!error)
 	{
@@ -159,7 +161,7 @@ char *error_2_syntax(char **args)
 		return (NULL);
 	}
 
-	_strcpy(error, name);
+	_strcpy(error, name_err1);
 	_strcat(error, ": ");
 	_strcat(error, hist_str);
 	_strcat(error, ": Syntax error: \"");
